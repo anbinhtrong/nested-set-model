@@ -1,0 +1,18 @@
+namespace SavingDirectoryStructureByUsingNestedSetModel.Migrations
+{
+    using System;
+    using System.Data.Entity.Migrations;
+    
+    public partial class RemoveNodeId : DbMigration
+    {
+        public override void Up()
+        {
+            DropColumn("dbo.DirectoryTreeMap", "NodeId");
+        }
+        
+        public override void Down()
+        {
+            AddColumn("dbo.DirectoryTreeMap", "NodeId", c => c.Int(nullable: false));
+        }
+    }
+}

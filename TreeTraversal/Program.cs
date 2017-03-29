@@ -14,6 +14,8 @@ namespace TreeTraversal
             DisplayTree("Food");
             Console.WriteLine("*********************");
             DisplayParent("Cherry");
+            Console.WriteLine("**********************");
+            findLeaf();
         }
 
         static void DisplayTree(string root)
@@ -65,6 +67,26 @@ namespace TreeTraversal
         }
 
         /// <summary>
+        /// Find all leaves
+        /// </summary>
+        static void findLeaf()
+        {
+            var db = new Entities();
+
+            // retrieve the left and right value of the $root node  
+            var query = "SELECT * FROM tree WHERE [Right] = [Left] + 1;";
+            var result1 = db.Database.SqlQuery<tree>(query).ToList();
+            var right = new List<int>();
+            // display each row  
+            foreach (tree child in result1)
+            {                
+                // display indented node title                  
+                Console.WriteLine(child.Title);
+
+            }
+        }
+
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="parent"></param>
@@ -92,13 +114,18 @@ namespace TreeTraversal
             return right + 1;
         }
 
+        /// <summary>
+        /// insert new node
+        /// </summary>
+        /// <param name="newNodeName"></param>
+        /// <param name="newLeft"></param>
         public static void AddNewNode(string newNodeName, int newLeft)
         {
             var db = new Entities();
             var queryBuilder = new StringBuilder();
             queryBuilder.Append($"UPDATE tree SET [right]=[right]+2 WHERE [right]>5;");
-            queryBuilder.Append("UPDATE tree SET [left] = lft + 2 WHERE lft > 5;");
-            queryBuilder.Append("INSERT INTO tree SET lft=6, [right]=7, title='Strawberry';");
+            queryBuilder.Append("UPDATE tree SET [left] = [left] + 2 WHERE [left] > 5;");
+            queryBuilder.Append($"INSERT INTO tree SET [left]={newLeft}, [right]=7, title='{newNodeName}';");
         }
     }
 }
