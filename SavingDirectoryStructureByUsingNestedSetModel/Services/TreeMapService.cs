@@ -58,6 +58,13 @@ namespace SavingDirectoryStructureByUsingNestedSetModel.Services
             _context.Database.ExecuteSqlCommand("Exec [MoveNode] @p0, @p1, @p2, @p3", currentNode.Id, parentNode.Id, currentNode.Lft, currentNode.Rgt);
         }
 
+        public void DeleteNode(DirectoryTreeMap currentNode)
+        {
+            //only delete if node is leaf
+            if((currentNode.Rgt - currentNode.Lft + 1) /2 == 1)
+                _context.Database.ExecuteSqlCommand("Exec [DeleteNode] @p0", currentNode.Id);
+        }
+
         public void DeleteTree()
         {
             _context.Database.ExecuteSqlCommand("DELETE FROM dbo.DirectoryTreeMap");
@@ -107,7 +114,7 @@ namespace SavingDirectoryStructureByUsingNestedSetModel.Services
                     Console.Write("  ");
                 }
                 // display indented node title                  
-                Console.WriteLine(child.Name);
+                Console.WriteLine(child.Name + $" ({child.Lft}:{child.Rgt})");
 
                 // add this node to the stack  
                 right.Add(child.Rgt);

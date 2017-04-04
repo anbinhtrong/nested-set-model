@@ -37,6 +37,11 @@ namespace SavingDirectoryStructureByUsingNestedSetModel
             treeMapService.MoveToLeftSide(phpNode1, javascriptNode1);
             Console.WriteLine("---------------------------Tree after move: PHP => become child of Javascript");
             treeMapService.DisplayRootTree();
+
+            var java = treeMapService.GetByName("Java").First();
+            treeMapService.DeleteNode(java);
+            Console.WriteLine("---------------------------Tree after delete Java node");
+            treeMapService.DisplayRootTree();
         }
 
         public static void generateData1()
