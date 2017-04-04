@@ -98,6 +98,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Content Include="StoredProcedures\DeleteNode.sql" />
     <Content Include="StoredProcedures\InsertNewNode.sql" />
     <Content Include="StoredProcedures\MoveNode.sql" />
   </ItemGroup>

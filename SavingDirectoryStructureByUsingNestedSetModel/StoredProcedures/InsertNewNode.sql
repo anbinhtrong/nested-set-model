@@ -13,7 +13,7 @@ BEGIN
 					  1, -- Lft - int
 					  2  -- Rgt - int
 					  )
-			SELECT @nodeId = @@IDENTITY
+			SELECT @nodeId = 1--@@IDENTITY
 			
 		INSERT INTO TreeContent (NodeId, Name) VALUES (@nodeId, @name);
 	END
