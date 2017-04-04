@@ -53,6 +53,16 @@ namespace SavingDirectoryStructureByUsingNestedSetModel.Services
             _context.Database.ExecuteSqlCommand("Exec [MoveNode] @p0, @p1, @p2, @p3", currentNode.Id, parentNode.Id, currentNode.Lft, currentNode.Rgt);
         }
 
+        public void MoveToLeftSide(DirectoryTreeMap currentNode, DirectoryTreeMap parentNode)
+        {
+            _context.Database.ExecuteSqlCommand("Exec [MoveNode] @p0, @p1, @p2, @p3", currentNode.Id, parentNode.Id, currentNode.Lft, currentNode.Rgt);
+        }
+
+        public void DeleteTree()
+        {
+            _context.Database.ExecuteSqlCommand("DELETE FROM dbo.DirectoryTreeMap");
+        }
+
         public List<DirectoryTreeMap> GetByName(string name)
         {
             var query = $"SELECT * FROM dbo.DirectoryTreeMap WHERE Name = '{name}'";
